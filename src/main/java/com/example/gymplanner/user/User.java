@@ -3,9 +3,11 @@ package com.example.gymplanner.user;
 import com.example.gymplanner.gym.WorkoutProgram;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -28,7 +30,13 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        // Controlla se il ruolo è nullo per sicurezza
+        if (role == null) {
+            return Collections.emptyList();
+        }
+        // Crea una lista contenente un singolo permesso basato sul nostro Enum Role
+        // Es: se role è ADMIN, crea un'autorità "ROLE_ADMIN"
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

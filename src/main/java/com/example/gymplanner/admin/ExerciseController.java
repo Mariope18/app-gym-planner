@@ -20,7 +20,7 @@ public class ExerciseController {
         return ResponseEntity.ok(exerciseService.findAllExercise());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Exercise> getExerciseById(@PathVariable Long id){
         return exerciseService.findById(id)
                 .map(ResponseEntity::ok)
@@ -32,7 +32,7 @@ public class ExerciseController {
         return new ResponseEntity<>(exerciseService.createExercise(exercise), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Exercise> updateExercise(@PathVariable Long id, @RequestBody Exercise exerciseNew){
         return exerciseService.updateExercise(id,exerciseNew)
                 .map(ResponseEntity::ok)
