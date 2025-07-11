@@ -1,5 +1,6 @@
 package com.example.gymplanner.user;
 
+import com.example.gymplanner.gym.WorkoutProgram;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,8 +18,12 @@ public class User implements UserDetails {
 
     private String username;
     private String password;
+
     @Enumerated(EnumType.STRING) // Salva il ruolo come stringa ("USER", "ADMIN") nel DB
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<WorkoutProgram> workoutPrograms;
 
 
     @Override
@@ -54,5 +59,37 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<WorkoutProgram> getWorkoutPrograms() {
+        return workoutPrograms;
+    }
+
+    public void setWorkoutPrograms(List<WorkoutProgram> workoutPrograms) {
+        this.workoutPrograms = workoutPrograms;
     }
 }
