@@ -37,7 +37,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // Regole specifiche per i ruoli
-                        .requestMatchers("/gym/**").hasAnyRole("USER", "ADMIN")
+                            .requestMatchers("/gym/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
 
                         // Qualsiasi altra richiesta deve essere autenticata
