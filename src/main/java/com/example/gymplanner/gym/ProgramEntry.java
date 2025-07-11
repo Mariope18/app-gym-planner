@@ -15,7 +15,7 @@ public class ProgramEntry {
     private String notes;
 
     @ManyToOne
-    @JoinColumn(name = "programEntry_id")
+    @JoinColumn(name = "workoutProgram_id")
     private WorkoutProgram workoutProgram;
 
     @ManyToOne

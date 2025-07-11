@@ -19,7 +19,7 @@ public class WorkoutProgram {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "programEntry")
+    @OneToMany(mappedBy = "workoutProgram")
     private List<ProgramEntry> programEntries;
 
     public Long getId() {
