@@ -1,7 +1,5 @@
 // ExerciseDto.java
-package com.example.gymplanner.dto;
-
-import com.example.gymplanner.gym.MuscleGroup;
+package com.example.gymplanner.exercise;
 
 public class ExerciseDto {
     private Long id;

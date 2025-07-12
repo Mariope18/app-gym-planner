@@ -1,4 +1,4 @@
-package com.example.gymplanner.gym;
+package com.example.gymplanner.exercise;
 
 public enum MuscleGroup {
     PETTO,

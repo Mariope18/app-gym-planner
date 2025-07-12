@@ -1,5 +1,6 @@
-package com.example.gymplanner.gym;
+package com.example.gymplanner.workout;
 
+import com.example.gymplanner.exercise.Exercise;
 import jakarta.persistence.*;
 
 @Entity

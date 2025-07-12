@@ -1,6 +1,5 @@
-package com.example.gymplanner.admin;
+package com.example.gymplanner.exercise;
 
-import com.example.gymplanner.gym.Exercise;
 import java.util.List;
 import java.util.Optional;
 

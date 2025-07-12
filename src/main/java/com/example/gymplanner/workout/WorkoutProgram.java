@@ -1,4 +1,4 @@
-package com.example.gymplanner.gym;
+package com.example.gymplanner.workout;
 
 import com.example.gymplanner.user.User;
 import jakarta.persistence.*;

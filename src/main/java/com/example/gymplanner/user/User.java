@@ -1,6 +1,6 @@
 package com.example.gymplanner.user;
 
-import com.example.gymplanner.gym.WorkoutProgram;
+import com.example.gymplanner.workout.WorkoutProgram;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

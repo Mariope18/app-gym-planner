@@ -1,5 +1,6 @@
-package com.example.gymplanner.gym;
+package com.example.gymplanner.exercise;
 
+import com.example.gymplanner.workout.ProgramEntry;
 import jakarta.persistence.*;
 
 import java.util.List;
