@@ -16,4 +16,6 @@ public interface WorkoutProgramService {
 
     // Cancella un programma di un utente
     boolean deleteProgram(Long id, User user);
+
+    ProgramEntry addEntryToProgram(Long workoutProgramId, User user, AddEntryRequest entryRequest);
 }

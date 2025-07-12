@@ -53,4 +53,8 @@ public class WorkoutProgram {
     public void setProgramEntries(List<ProgramEntry> programEntries) {
         this.programEntries = programEntries;
     }
+
+    public void addProgramEntry(ProgramEntry programEntry){
+        this.programEntries.add(programEntry);
+    }
 }

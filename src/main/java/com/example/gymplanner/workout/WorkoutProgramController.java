@@ -42,4 +42,17 @@ public class WorkoutProgramController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    // Aggiungi un esercizio a un programma specifico
+    @PostMapping("/{programId}/entries")
+    public ResponseEntity<ProgramEntry> addEntryToProgram(@PathVariable Long workoutProgramId,
+                                                  @AuthenticationPrincipal User user,
+                                                  @RequestBody AddEntryRequest entryRequest){
+        ProgramEntry programEntry = programService.addEntryToProgram(workoutProgramId,user,entryRequest);
+
+        if (programEntry != null){
+            return new ResponseEntity<>(programEntry,HttpStatus.CREATED);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
