@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ExerciseController {
 
     @Autowired
-    private  ExerciseServiceImpl exerciseService;
+    private ExerciseService exerciseService; // <-- Inietta l'interfaccia!
 
     @GetMapping
     public ResponseEntity<List<ExerciseDto>> getAllExercise(){
@@ -64,7 +64,7 @@ public class ExerciseController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExercise(@PathVariable Long id){
         // Chiamiamo il nostro nuovo metodo del service che restituisce un booleano
         boolean isDeleted = exerciseService.deleteExercise(id);
