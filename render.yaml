@@ -3,8 +3,7 @@ services:
     name: app-gym-planner
     env: docker
     plan: free
-    buildCommand: "./mvnw clean install"
-    startCommand: "java -jar target/*.jar"
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: DB_HOST
         fromDatabase:
