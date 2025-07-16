@@ -1,28 +1,38 @@
 services:
   - type: web
     name: gym-planner-backend
-    plan: free
-    # CORREZIONE: Diciamo a Render di usare Docker
     env: docker
+    plan: free
     healthCheckPath: /actuator/health
     envVars:
-      - key: DB_HOST
-        fromDatabase:
-          name: gym-planner-db
+      # --- Variabili per collegare il Database (c'erano già) ---
+      - fromDatabase:
+          name: gym-planner-db # Assicurati che il nome del DB sia corretto
           property: host
-      - key: DB_PORT
-        fromDatabase:
+        key: DB_HOST
+      - fromDatabase:
           name: gym-planner-db
           property: port
-      - key: DB_DATABASE
-        fromDatabase:
+        key: DB_PORT
+      - fromDatabase:
           name: gym-planner-db
           property: database
-      - key: DB_USERNAME
-        fromDatabase:
+        key: DB_DATABASE
+      - fromDatabase:
           name: gym-planner-db
           property: user
-      - key: DB_PASSWORD
-        fromDatabase:
+        key: DB_USERNAME
+      - fromDatabase:
           name: gym-planner-db
           property: password
+        key: DB_PASSWORD
+
+      # --- NUOVE: Configurazioni di Spring che prima erano nel .properties ---
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+      - key: SPRING_JPA_DATABASE_PLATFORM
+        value: org.hibernate.dialect.PostgreSQLDialect
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_SHOW_SQL
+        value: "true" # Mettiamo "true" tra virgolette per sicurezza
