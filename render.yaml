@@ -7,27 +7,27 @@ services:
     envVars:
       - key: DB_HOST
         fromDatabase:
-          name: gymplanner-db
+          name: gymdb
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: gymplanner-db
+          name: gymdb
           property: port
       - key: DB_NAME
         fromDatabase:
-          name: gymplanner-db
+          name: gymdb
           property: database
       - key: DB_USER
         fromDatabase:
-          name: gymplanner-db
+          name: gymdb
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: gymplanner-db
+          name: gymdb
           property: password
 
 databases:
-  - name: gymplanner-db
+  - name: gymdb
     databaseName: gymdb
     user: mario
     plan: free
