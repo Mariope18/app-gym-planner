@@ -1,3 +1,4 @@
+# Il file render.yaml corretto
 services:
   - type: web
     name: gym-planner-backend
@@ -5,19 +6,23 @@ services:
     plan: free
     healthCheckPath: /actuator/health
     envVars:
-      # Questa variabile temporanea prende l'URL ESTERNO dal database di Render
-      - key: RENDER_EXTERNAL_URL
+      - key: DB_HOST
         fromDatabase:
           name: gym-planner-db
-          property: externalConnectionString
-
-      # QUESTA È LA CHIAVE: Creiamo l'URL corretto per Java
-      # aggiungendo "jdbc:" davanti all'URL di Render.
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:${RENDER_EXTERNAL_URL}
-
-      # Impostiamo le altre proprietà di Spring qui, per massima sicurezza
-      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
-        value: update
-      - key: SPRING_JPA_SHOW_SQL
-        value: "true"
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: gym-planner-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: gym-planner-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: gym-planner-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: gym-planner-db
+          property: password
