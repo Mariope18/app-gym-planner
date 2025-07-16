@@ -1,4 +1,3 @@
-# Il file render.yaml corretto
 services:
   - type: web
     name: gym-planner-backend
