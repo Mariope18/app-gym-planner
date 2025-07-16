@@ -1,17 +1,16 @@
 services:
-  # Questa è la configurazione per il nostro Web Service
   - type: web
     name: gym-planner-backend
-    env: java
-    plan: free # Specifichiamo il piano gratuito
+    runtime: java # <-- CORREZIONE 1: 'runtime' invece di 'env'
+    plan: free
     buildCommand: "./mvnw package"
     startCommand: "java -jar target/gym-planner-0.0.1-SNAPSHOT.jar"
     healthCheckPath: /actuator/health
     envVars:
       - key: DB_URL
         fromDatabase:
-          name: gym-planner-db # Il nome del database che hai creato su Render
-          property: internalUrl
+          name: gym-planner-db
+          property: internalConnectionString # <-- CORREZIONE 2
       - key: DB_USERNAME
         fromDatabase:
           name: gym-planner-db
