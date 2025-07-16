@@ -1,16 +1,25 @@
 services:
   - type: web
     name: gym-planner-backend
-    runtime: java # <-- CORREZIONE 1: 'runtime' invece di 'env'
+    # CORREZIONE 1: Abbiamo rimosso la riga 'runtime: java'.
     plan: free
     buildCommand: "./mvnw package"
     startCommand: "java -jar target/gym-planner-0.0.1-SNAPSHOT.jar"
     healthCheckPath: /actuator/health
     envVars:
-      - key: DB_URL
+      # CORREZIONE 2: Forniamo le parti della connessione al DB separatamente
+      - key: DB_HOST
         fromDatabase:
           name: gym-planner-db
-          property: internalConnectionString # <-- CORREZIONE 2
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: gym-planner-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: gym-planner-db
+          property: database
       - key: DB_USERNAME
         fromDatabase:
           name: gym-planner-db
