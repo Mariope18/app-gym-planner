@@ -1,6 +1,7 @@
 package com.example.gymplanner.workout;
 
 import com.example.gymplanner.user.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class WorkoutProgram {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "workoutProgram")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "workoutProgram", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProgramEntry> programEntries;
 
     public Long getId() {

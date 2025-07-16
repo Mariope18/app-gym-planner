@@ -52,6 +52,19 @@ public class WorkoutProgramServiceImpl implements WorkoutProgramService{
     }
 
     @Override
+    @Transactional
+    public Optional<WorkoutProgram> updateProgramName(Long programId, String newName, User user) {
+        // Troviamo il programma da modificare
+        Optional<WorkoutProgram> programOptional = workoutProgramRepository.findByIdAndUser(programId, user);
+
+        // Se esiste e appartiene all'utente, aggiorniamo il nome e salviamo
+        return programOptional.map(program -> {
+            program.setName(newName);
+            return workoutProgramRepository.save(program);
+        });
+    }
+
+    @Override
     @Transactional // <-- 1. Aggiungi per la consistenza dei dati
     public ProgramEntry addEntryToProgram(Long workoutProgramId, User user, AddEntryRequest request) {
 
@@ -73,5 +86,51 @@ public class WorkoutProgramServiceImpl implements WorkoutProgramService{
 
         // 5. Salva la nuova entità e restituiscila in un solo passaggio
         return programEntryRepository.save(programEntry);
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteProgramEntry(Long entryId, User user) {
+        // Troviamo l'entry da cancellare
+        Optional<ProgramEntry> entryOptional = programEntryRepository.findById(entryId);
+
+        if (entryOptional.isEmpty()) {
+            return false; // L'entry non esiste
+        }
+
+        ProgramEntry entry = entryOptional.get();
+
+        // Controlliamo che l'utente che fa la richiesta sia il proprietario
+        // della scheda a cui l'entry appartiene. Questa è una misura di sicurezza.
+        if (!entry.getWorkoutProgram().getUser().getId().equals(user.getId())) {
+            return false; // Non autorizzato
+        }
+
+        programEntryRepository.delete(entry);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Optional<ProgramEntry> updateProgramEntry(Long entryId, UpdateEntryRequest request, User user) {
+        Optional<ProgramEntry> entryOptional = programEntryRepository.findById(entryId);
+        if (entryOptional.isEmpty()) {
+            return Optional.empty(); // L'entry non esiste
+        }
+
+        ProgramEntry entry = entryOptional.get();
+
+        // Controllo di sicurezza: l'utente deve essere il proprietario
+        if (!entry.getWorkoutProgram().getUser().getId().equals(user.getId())) {
+            return Optional.empty(); // Non autorizzato
+        }
+
+        // Aggiorniamo i campi
+        entry.setSets(request.getSets());
+        entry.setReps(request.getReps());
+        entry.setNotes(request.getNotes());
+
+        // Salviamo le modifiche e restituiamo l'entry aggiornata
+        return Optional.of(programEntryRepository.save(entry));
     }
 }

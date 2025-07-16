@@ -17,5 +17,15 @@ public interface WorkoutProgramService {
     // Cancella un programma di un utente
     boolean deleteProgram(Long id, User user);
 
+    //Modifica noe di un programma
+    Optional<WorkoutProgram> updateProgramName(Long programId, String newName, User user);
+
     ProgramEntry addEntryToProgram(Long workoutProgramId, User user, AddEntryRequest entryRequest);
+
+    // Cancella un singolo pragramEntry
+    boolean deleteProgramEntry(Long entryId, User user);
+
+    // Modifica di un singolo pragramEntry
+    Optional<ProgramEntry> updateProgramEntry(Long entryId, UpdateEntryRequest request, User user);
+
 }

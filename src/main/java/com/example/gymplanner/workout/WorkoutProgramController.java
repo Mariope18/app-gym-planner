@@ -43,8 +43,20 @@ public class WorkoutProgramController {
         return ResponseEntity.notFound().build();
     }
 
+    // Per la modifica del nome, ci basta ricevere una semplice stringa nel corpo della richiesta
+    @PutMapping("/{programId}")
+    public ResponseEntity<WorkoutProgram> updateProgramName(
+            @PathVariable Long programId,
+            @RequestBody String newName,
+            @AuthenticationPrincipal User user) {
+
+        return programService.updateProgramName(programId, newName, user)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // Aggiungi un esercizio a un programma specifico
-    @PostMapping("/{programId}/entries")
+    @PostMapping("/{workoutProgramId}/entries")
     public ResponseEntity<ProgramEntry> addEntryToProgram(@PathVariable Long workoutProgramId,
                                                   @AuthenticationPrincipal User user,
                                                   @RequestBody AddEntryRequest entryRequest){
@@ -54,5 +66,28 @@ public class WorkoutProgramController {
             return new ResponseEntity<>(programEntry,HttpStatus.CREATED);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/entries/{entryId}")
+    public ResponseEntity<Void> deleteProgramEntry(@PathVariable Long entryId, @AuthenticationPrincipal User user) {
+        boolean isDeleted = programService.deleteProgramEntry(entryId, user);
+        if (isDeleted) {
+            // 204 No Content è la risposta standard per una cancellazione riuscita
+            return ResponseEntity.noContent().build();
+        } else {
+            // 404 Not Found se l'entry non esiste o l'utente non è il proprietario
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/entries/{entryId}")
+    public ResponseEntity<ProgramEntry> updateProgramEntry(
+            @PathVariable Long entryId,
+            @RequestBody UpdateEntryRequest request,
+            @AuthenticationPrincipal User user) {
+
+        return programService.updateProgramEntry(entryId, request, user)
+                .map(ResponseEntity::ok) // Se l'update ha successo, rispondi 200 OK con l'oggetto aggiornato
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Altrimenti 404 Not Found
     }
 }

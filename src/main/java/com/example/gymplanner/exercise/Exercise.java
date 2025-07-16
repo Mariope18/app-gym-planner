@@ -1,6 +1,8 @@
 package com.example.gymplanner.exercise;
 
 import com.example.gymplanner.workout.ProgramEntry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,7 +22,18 @@ public class Exercise {
     private MuscleGroup muscleGroup;
 
     @OneToMany(mappedBy = "exercise")
+    @JsonIgnore
     private List<ProgramEntry> programEntries;
+
+    // Costruttore vuoto per JPA/Hibernate
+    public Exercise() {
+    }
+
+    public Exercise(String name, String description, MuscleGroup muscleGroup) {
+        this.name = name;
+        this.description = description;
+        this.muscleGroup = muscleGroup;
+    }
 
     public Long getId() {
         return id;

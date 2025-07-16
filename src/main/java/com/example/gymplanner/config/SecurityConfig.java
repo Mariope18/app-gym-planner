@@ -38,7 +38,7 @@ public class SecurityConfig {
 
                         // Regole specifiche per i ruoli
                             .requestMatchers("/workout/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/admin/**").hasAnyRole("USER", "ADMIN")
 
                         // Qualsiasi altra richiesta deve essere autenticata
                         .anyRequest().authenticated()

@@ -1,6 +1,7 @@
 package com.example.gymplanner.workout;
 
 import com.example.gymplanner.exercise.Exercise;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +18,7 @@ public class ProgramEntry {
 
     @ManyToOne
     @JoinColumn(name = "workoutProgram_id")
+    @JsonBackReference
     private WorkoutProgram workoutProgram;
 
     @ManyToOne

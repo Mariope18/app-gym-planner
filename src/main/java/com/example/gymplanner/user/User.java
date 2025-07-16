@@ -1,6 +1,7 @@
 package com.example.gymplanner.user;
 
 import com.example.gymplanner.workout.WorkoutProgram;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -93,6 +94,7 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    @JsonIgnore
     public List<WorkoutProgram> getWorkoutPrograms() {
         return workoutPrograms;
     }
