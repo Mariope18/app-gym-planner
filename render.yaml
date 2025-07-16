@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: app-gym-planner
+    env: docker
+    plan: free
+    buildCommand: "./mvnw clean install"
+    startCommand: "java -jar target/*.jar"
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: gymplanner-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: gymplanner-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: gymplanner-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: gymplanner-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: gymplanner-db
+          property: password
+
+databases:
+  - name: gymplanner-db
+    databaseName: gymdb
+    user: mario
+    plan: free
