@@ -1,5 +1,6 @@
 package com.example.gymplanner.security;
 
+import com.example.gymplanner.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,6 +40,16 @@ public class JwtService {
 
     // Genera un token con extra claims
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+
+        // --- INIZIO MODIFICA ---
+        // Aggiungiamo il ruolo dell'utente ai "claims" del token.
+        // Dobbiamo controllare che userDetails sia una nostra istanza di User per accedere al metodo getRole().
+        if (userDetails instanceof User) {
+            var user = (User) userDetails;
+            extraClaims.put("role", user.getRole().name()); // Es. "ADMIN" o "USER"
+        }
+        // --- FINE MODIFICA ---
+
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
