@@ -26,6 +26,11 @@ public class AuthenticationService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword())); // Cripta la password!
+        // AGGIUNGI QUESTI
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+
         user.setRole(Role.USER); // Assegna il ruolo di default
         userRepository.save(user);
         String jwtToken = jwtService.generateToken(user);

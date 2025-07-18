@@ -15,6 +15,11 @@ import java.util.List;
 @Table(name = "utente")
 public class User implements UserDetails {
 
+    // 1. AGGIUNGI QUESTI CAMPI
+    private String firstName;
+    private String lastName;
+    private String email;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -102,4 +107,12 @@ public class User implements UserDetails {
     public void setWorkoutPrograms(List<WorkoutProgram> workoutPrograms) {
         this.workoutPrograms = workoutPrograms;
     }
+
+    // 2. AGGIUNGI QUESTI GETTER E SETTER
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 }
