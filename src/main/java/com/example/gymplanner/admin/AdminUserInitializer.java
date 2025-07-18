@@ -41,6 +41,19 @@ public class AdminUserInitializer implements CommandLineRunner {
             System.out.println(">>> Utente ADMIN di default creato con successo! <<<");
         }
 
+        // Controlliamo se un utente con username 'admin' esiste già per evitare di crearlo più volte
+        if (userRepository.findByUsername("user").isEmpty()) {
+            // Se non esiste, lo creiamo
+            User userUser = new User();
+            userUser.setUsername("user");
+            userUser.setPassword(passwordEncoder.encode("user")); // Usa una password sicura!
+            userUser.setRole(Role.USER);
+
+            userRepository.save(userUser);
+
+            System.out.println(">>> Utente USER di default creato con successo! <<<");
+        }
+
         // 2. Logica per creare gli esercizi di default
         if (exerciseRepository.count() == 0) {
             System.out.println(">>> Creazione esercizi di default... <<<");
