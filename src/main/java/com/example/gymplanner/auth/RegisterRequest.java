@@ -3,12 +3,18 @@ package com.example.gymplanner.auth;
 // Semplice classe per mappare il JSON della richiesta di registrazione
 // In RegisterRequest.java
 
+import jakarta.validation.constraints.NotBlank;
+
 public class RegisterRequest {
+    @NotBlank(message = "Lo username è obbligatorio")
     private String username;
+    @NotBlank(message = "La password è obbligatoria")
     private String password;
-    // AGGIUNGI QUESTI
+    @NotBlank(message = "Il nome è obbligatorio")
     private String firstName;
+    @NotBlank(message = "Il cognome è obbligatorio")
     private String lastName;
+    @NotBlank(message = "L'email è obbligatoria")
     private String email;
 
     // Getters e Setters per tutti i campi...
